@@ -1,0 +1,18 @@
+.im-calendar {
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  &__title {
+    font-size: 1.3rem;
+  }
+  &__navigation {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+  }
+}

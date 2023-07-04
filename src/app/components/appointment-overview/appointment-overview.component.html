@@ -1,3 +1,4 @@
 <div class="appointment-overview">
   <div *ngFor="let item of appointments$ | async">{{ item.id }}</div>
+  <calendar [events]="(events$ | async) ?? []"></calendar>
 </div>

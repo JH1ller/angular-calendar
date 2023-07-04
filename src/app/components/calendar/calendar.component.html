@@ -1,0 +1,46 @@
+<div class="im-calendar">
+  <div class="im-calendar__header">
+    <span class="im-calendar__title">{{
+      viewDate | calendarDate : view + "ViewTitle" : "en"
+    }}</span>
+    <div class="im-calendar__navigation">
+      <button
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        mat-icon-button
+        aria-label="Button to previous week"
+        mwlCalendarPreviousView
+      >
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <button
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        mat-stroked-button
+        aria-label="Button to today"
+        mwlCalendarToday
+      >
+        Today
+      </button>
+      <button
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        mat-icon-button
+        aria-label="Button to next week"
+        mwlCalendarNextView
+      >
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mwl-calendar-week-view
+    [viewDate]="viewDate"
+    [events]="events"
+    [dayStartHour]="8"
+    [dayEndHour]="20"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+  >
+  </mwl-calendar-week-view>
+</div>

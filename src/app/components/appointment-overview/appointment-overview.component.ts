@@ -4,6 +4,7 @@ import { AppointmentsState } from '../../state/appointments/appointments.state';
 import { Observable } from 'rxjs';
 import { Appointment } from '../../models/dtos/appointment.model';
 import { FetchData } from '../../state/appointments/appointments.actions';
+import { CalendarEvent } from 'calendar-utils';
 
 @Component({
   selector: 'appointment-overview',
@@ -12,7 +13,10 @@ import { FetchData } from '../../state/appointments/appointments.actions';
 })
 export class AppointmentOverviewComponent {
   @Select(AppointmentsState.appointments)
-  public appointments$!: Observable<Appointment[]>;
+  public appointments$: Observable<Appointment[]>;
+
+  @Select(AppointmentsState.events)
+  public events$: Observable<CalendarEvent[]>;
 
   constructor(private store: Store) {}
 
