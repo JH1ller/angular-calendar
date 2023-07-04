@@ -1,4 +1,11 @@
 <div class="appointment-overview">
   <div *ngFor="let item of appointments$ | async">{{ item.id }}</div>
-  <calendar [events]="(events$ | async) ?? []"></calendar>
+  <im-month-calendar
+    *ngIf="currentDate$ | async as currentDate"
+    [currentDate]="currentDate"
+    [calendarWeeks]="calendarWeeks"
+    (changeDate)="currentDate$.next($event)"
+    (prevMonth)="prevMonth()"
+    (nextMonth)="nextMonth()"
+  ></im-month-calendar>
 </div>

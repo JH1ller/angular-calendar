@@ -1,0 +1,33 @@
+<div class="im-month-calendar">
+  <p class="im-month-calendar__title">
+    {{ getMonthName(currentDate) }} {{ currentDate.getFullYear() }}
+  </p>
+  <div class="im-month-calendar__navigation">
+    <button mat-icon-button aria-label="Prev button" (click)="prevMonth.emit()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Next button" (click)="nextMonth.emit()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+  <div class="im-month-calendar__grid">
+    <div class="im-month-calendar__week-header">
+      <div class="im-month-calendar__header-item" *ngFor="let name of weekdays">
+        {{ name }}
+      </div>
+    </div>
+    <div class="im-month-calendar__week" *ngFor="let week of calendarWeeks">
+      <div
+        class="im-month-calendar__day"
+        *ngFor="let day of week"
+        [ngClass]="{
+          '-day': isSameDay(day, currentDate),
+          '-week': isSameWeek(day, currentDate),
+        }"
+        (click)="changeDate.emit(day)"
+      >
+        {{ day.getDate() }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -13,12 +12,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppointmentsState } from './state/appointments/appointments.state';
 
 import { AppointmentOverviewComponent } from './components/appointment-overview/appointment-overview.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { MonthCalendarComponent } from './components/month-calendar/month-calendar.component';
 
 @NgModule({
-  declarations: [AppComponent, AppointmentOverviewComponent, CalendarComponent],
+  declarations: [
+    AppComponent,
+    AppointmentOverviewComponent,
+    MonthCalendarComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,11 +28,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,56 @@
+$cell-width: 40px;
+$cell-height: 35px;
+
+.im-month-calendar {
+  &__grid {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  &__week-header,
+  &__week {
+    display: flex;
+  }
+
+  &__week-header {
+    margin-bottom: 6px;
+  }
+
+  &__header-item {
+    width: $cell-width;
+    height: $cell-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__day {
+    width: $cell-width;
+    height: $cell-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &.-week {
+      background: rgb(236, 246, 253);
+
+      &.-day {
+        background: rgb(47, 156, 245);
+        color: white;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    background: var(--bg-color);
+    padding: 12px;
+  }
+}
