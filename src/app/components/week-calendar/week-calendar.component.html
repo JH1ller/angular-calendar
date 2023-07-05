@@ -1,4 +1,26 @@
 <div class="im-week-calendar">
+  <div class="im-week-calendar__title-bar">
+    <p class="im-week-calendar__title">
+      {{ getFormattedDateTitle() }}
+    </p>
+    <div class="im-week-calendar__navigation">
+      <button
+        mat-icon-button
+        aria-label="Prev button"
+        (click)="prevWeek.emit()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Next button"
+        (click)="nextWeek.emit()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- <div class="im-week-calendar__outer-grid"> -->
   <div class="im-week-calendar__weekday-header">
     <div
       class="im-week-calendar__weekday-header-day"
@@ -8,35 +30,34 @@
       {{ getFormattedDayHeader(day) }}
     </div>
   </div>
-  <div class="im-week-calendar__hours-column">
-    <div
-      class="im-week-calendar__hours-column-hour"
-      *ngFor="let hour of getHoursOfDay(currentDate)"
-    >
-      {{ getFormattedHour(hour) }}
-    </div>
-  </div>
-  <div class="im-week-calendar__hour-grid">
-    <div
-      class="im-week-calendar__hour-grid-day"
-      *ngFor="let day of currentWeek"
-    >
+  <div class="im-week-calendar__hours-wrapper">
+    <div class="im-week-calendar__hours-column">
       <div
-        class="im-week-calendar__hour-grid-hour"
-        *ngFor="let hour of getHoursOfDay(day)"
-        [ngClass]="{ '-meeting': getNumberOfAppointmentsInHour(hour) }"
+        class="im-week-calendar__hours-column-hour"
+        *ngFor="let hour of getHoursOfDay(currentDate)"
       >
-        <span
-          class="im-week-calendar__appointment-label"
-          *ngIf="getNumberOfAppointmentsInHour(hour)"
+        {{ getFormattedHour(hour) }}
+      </div>
+    </div>
+    <div class="im-week-calendar__hour-grid">
+      <div
+        class="im-week-calendar__hour-grid-day"
+        *ngFor="let day of currentWeek"
+      >
+        <div
+          class="im-week-calendar__hour-grid-hour"
+          *ngFor="let hour of getHoursOfDay(day)"
+          [ngClass]="{ '-appointment': getNumberOfAppointmentsInHour(hour) }"
+          (click)="hourClicked(hour)"
         >
-          {{
-            pluralize(
-              "Viewing",
-              getNumberOfAppointmentsInHour(hour)
-            ).toUpperCase()
-          }}
-        </span>
+          <p
+            class="im-week-calendar__appointment-label"
+            *ngIf="getNumberOfAppointmentsInHour(hour) as numOfAppointments"
+          >
+            {{ numOfAppointments }}
+            {{ "Viewing" | pluralize : numOfAppointments | uppercase }}
+          </p>
+        </div>
       </div>
     </div>
   </div>

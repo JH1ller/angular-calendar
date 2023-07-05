@@ -1,0 +1,74 @@
+<div class="im-appointment-dialog">
+  <div
+    class="im-appointment-dialog__title-bar"
+    *ngIf="currentDate$ | async as currentDate"
+  >
+    <div class="im-appointment-dialog__title-day">
+      <mat-icon class="im-appointment-dialog__icon">calendar_today</mat-icon
+      >{{ getFormattedCurrentDay(currentDate) }}
+    </div>
+    <div class="im-appointment-dialog__title-hour">
+      <mat-icon class="im-appointment-dialog__icon">schedule</mat-icon
+      >{{ getFormattedCurrentHour(currentDate) }}
+    </div>
+    <div class="im-appointment-dialog__navigation">
+      <button
+        mat-icon-button
+        aria-label="Prev button"
+        [ngClass]="{ '-hidden': !(previousAppointment$ | async) }"
+        (click)="goToPrevAppointment()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Next button"
+        [ngClass]="{ '-hidden': !(nextAppointment$ | async) }"
+        (click)="goToNextAppointment()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="im-appointment-dialog__body">
+    <div
+      class="im-appointment-dialog__property"
+      *ngFor="
+        let propertyGroup of currentAppointmentsByProperty$ | async | keyvalue
+      "
+    >
+      <div class="im-appointment-dialog__property-info">
+        <img
+          src="/assets/images/placeholder.png"
+          alt="Placeholder image"
+          class="im-appointment-dialog__property-image"
+        />
+        <div class="im-appointment-dialog__address-wrapper">
+          <h3 class="im-appointment-dialog__property-name">
+            {{ propertyGroup.value[0].property.name }}
+          </h3>
+          <p class="im-appointment-dialog__property-address">
+            {{ getFormattedPropertyAddress(propertyGroup.value[0].property) }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="im-appointment-dialog__appointment"
+        *ngFor="let appointment of propertyGroup.value"
+      >
+        <div class="im-appointment-dialog__appointment-date-item">
+          <mat-icon class="im-appointment-dialog__icon">calendar_today</mat-icon
+          >{{ getFormattedAppointmentDate(appointment.date) }}
+        </div>
+        <div class="im-appointment-dialog__appointment-date-item">
+          <mat-icon class="im-appointment-dialog__icon">schedule</mat-icon
+          >{{ getFormattedAppointmentTime(appointment.date) }}
+        </div>
+        <div class="im-appointment-dialog__appointment-date-item">
+          <mat-icon class="im-appointment-dialog__icon">person</mat-icon
+          >{{ appointment.attendeeCount }} | {{ appointment.maxInviteeCount }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

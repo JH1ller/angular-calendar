@@ -11,9 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 // state imports
 import { AppointmentsState } from './state/appointments/appointments.state';
 
+// components
 import { AppointmentOverviewComponent } from './components/appointment-overview/appointment-overview.component';
 import { MonthCalendarComponent } from './components/month-calendar/month-calendar.component';
 import { WeekCalendarComponent } from './components/week-calendar/week-calendar.component';
+
+// pipes
+import { PluralizePipe } from './pipes/pluralize.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,7 @@ import { WeekCalendarComponent } from './components/week-calendar/week-calendar.
     AppointmentOverviewComponent,
     MonthCalendarComponent,
     WeekCalendarComponent,
+    PluralizePipe,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,12 @@
-<div class="appointment-overview" *ngIf="currentDate$ | async as currentDate">
+<div
+  class="im-appointment-overview"
+  *ngIf="currentDate$ | async as currentDate"
+>
   <im-month-calendar
     [currentDate]="currentDate"
     [calendarWeeks]="calendarWeeks"
     [appointments]="(appointments$ | async) ?? []"
-    (changeDate)="currentDate$.next($event)"
+    (changeDate)="setCurrentDate($event)"
     (prevMonth)="prevMonth()"
     (nextMonth)="nextMonth()"
   ></im-month-calendar>
@@ -11,7 +14,7 @@
     [currentDate]="currentDate"
     [currentWeek]="currentWeek"
     [appointments]="(appointments$ | async) ?? []"
-    (changeDate)="currentDate$.next($event)"
+    (changeDate)="setCurrentDate($event)"
     (prevWeek)="prevWeek()"
     (nextWeek)="nextWeek()"
   ></im-week-calendar>

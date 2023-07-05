@@ -4,7 +4,7 @@
       "nodes": [
         {
           "id": "2442449",
-          "date": "2023-07-02T11:00:00.000+0000",
+          "date": "2023-07-07T11:00:00.000+0000",
           "maxInviteeCount": 3,
           "attendeeCount": 2,
           "showContactInformation": false,
@@ -47,7 +47,93 @@
         },
         {
           "id": "2442449",
-          "date": "2023-07-02T11:00:00.000+0000",
+          "date": "2023-07-07T11:00:00.000+0000",
+          "maxInviteeCount": 3,
+          "attendeeCount": 2,
+          "showContactInformation": false,
+          "contact": {
+            "firstName": "",
+            "name": "",
+            "email": "",
+            "mobile": "",
+            "phone": "",
+            "address": {},
+            "fullName": ""
+          },
+          "property": {
+            "id": "2442379",
+            "name": "2 Zimmer in Stendal",
+            "inviteeCount": 2,
+            "address": {
+              "street": "Karlhagenbeckstr",
+              "houseNumber": "31",
+              "city": "Stendal",
+              "country": "DE",
+              "zipCode": "39576",
+              "__typename": "Address"
+            },
+            "attachments": [],
+            "user": {
+              "profile": {
+                "firstname": "Max",
+                "name": "Mustermann",
+                "phone": "",
+                "gender": "NA",
+                "title": "NONE"
+              },
+              "usertype": "COMPANYADMIN",
+              "__typename": "LandlordUser"
+            },
+            "__typename": "Property"
+          },
+          "__typename": "Appointment"
+        },
+        {
+          "id": "2442449",
+          "date": "2023-07-07T11:00:00.000+0000",
+          "maxInviteeCount": 3,
+          "attendeeCount": 2,
+          "showContactInformation": false,
+          "contact": {
+            "firstName": "",
+            "name": "",
+            "email": "",
+            "mobile": "",
+            "phone": "",
+            "address": {},
+            "fullName": ""
+          },
+          "property": {
+            "id": "24423791",
+            "name": "3 Zimmer Wohnung in der Hafencity",
+            "inviteeCount": 2,
+            "address": {
+              "street": "Karlhagenbeckstr",
+              "houseNumber": "31",
+              "city": "Stendal",
+              "country": "DE",
+              "zipCode": "39576",
+              "__typename": "Address"
+            },
+            "attachments": [],
+            "user": {
+              "profile": {
+                "firstname": "Max",
+                "name": "Mustermann",
+                "phone": "",
+                "gender": "NA",
+                "title": "NONE"
+              },
+              "usertype": "COMPANYADMIN",
+              "__typename": "LandlordUser"
+            },
+            "__typename": "Property"
+          },
+          "__typename": "Appointment"
+        },
+        {
+          "id": "2442449",
+          "date": "2023-07-05T08:00:00.000+0000",
           "maxInviteeCount": 3,
           "attendeeCount": 2,
           "showContactInformation": false,
@@ -105,7 +191,7 @@
           },
           "property": {
             "id": "2440848",
-            "name": "Test",
+            "name": "Test Wohnung",
             "inviteeCount": 1,
             "address": {
               "street": "Lazarettstr.",

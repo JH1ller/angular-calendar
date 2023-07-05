@@ -6,6 +6,7 @@
   --color-bg: #fff;
   --color-bg-secondary: hsl(180, 50%, 93%);
   --color-accent: rgb(47, 156, 245);
+  --color-accent-subtle: rgb(236, 246, 253);
 }
 html,
 body {
@@ -17,5 +18,3 @@ body {
   color: var(--color-text);
   background: var(--color-bg-secondary);
 }
-
-//@import "~@angular/material/prebuilt-themes/indigo-pink.css";

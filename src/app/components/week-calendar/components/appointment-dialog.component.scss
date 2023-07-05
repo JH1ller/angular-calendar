@@ -1,0 +1,95 @@
+.im-appointment-dialog {
+  background: var(--color-accent-subtle);
+  width: 500px;
+  min-height: 400px;
+
+  &__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title-bar {
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-weight: bold;
+  }
+
+  &__title-day,
+  &__title-hour {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title-hour {
+    margin-left: 24px;
+  }
+
+  &__navigation {
+    margin-left: auto;
+
+    & > button {
+      transition: opacity 0.3s ease;
+
+      &.-hidden {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__property {
+    background: var(--color-bg);
+    padding: 12px;
+    border-radius: 4px;
+  }
+
+  &__property-info {
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  &__property-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  &__property-name,
+  &__property-address {
+    margin-bottom: 0;
+  }
+
+  &__property-address {
+    color: var(--color-text-secondary);
+  }
+
+  &__appointment {
+    padding: 12px;
+    margin-top: 8px;
+    background: var(--color-bg);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 4px;
+  }
+
+  &__address-wrapper {
+    margin-left: 12px;
+  }
+
+  &__appointment-date-item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    color: var(--color-accent);
+    transform: scale(0.8);
+    margin-right: 8px;
+  }
+}

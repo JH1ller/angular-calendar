@@ -1,23 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { AppointmentsState } from '../../state/appointments/appointments.state';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Appointment } from '../../models/dtos/appointment.model';
-import { FetchData } from '../../state/appointments/appointments.actions';
-import { CalendarEvent } from 'calendar-utils';
+import {
+  FetchData,
+  SetCurrentDate,
+  SetDateNextMonth,
+  SetDateNextWeek,
+  SetDatePrevMonth,
+  SetDatePrevWeek,
+} from '../../state/appointments/appointments.actions';
 import {
   startOfMonth,
   endOfMonth,
   subMonths,
-  addMonths,
   getDay,
   setDate,
   subDays,
   addDays,
   isSameWeek,
-  subWeeks,
-  addWeeks,
 } from 'date-fns';
+import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 
 @Component({
   selector: 'im-appointment-overview',
@@ -28,16 +32,21 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
   @Select(AppointmentsState.appointments)
   public appointments$: Observable<Appointment[]>;
 
-  @Select(AppointmentsState.events)
-  public events$: Observable<CalendarEvent[]>;
-
-  constructor(private store: Store) {}
+  @Select(AppointmentsState.currentDate)
+  public currentDate$: Observable<Date>;
 
   private currentDateSubscription: Subscription;
+
+  public currentWeek: Date[];
+
+  public calendarWeeks: Date[][];
+
+  constructor(private store: Store) {}
 
   public ngOnInit(): void {
     this.store.dispatch(new FetchData());
     this.currentDateSubscription = this.currentDate$.subscribe((date) => {
+      // recalculate calendarWeeks when currentDate value changes
       this.calendarWeeks = this.getCalendarWeeksForCurrentDate(date);
     });
   }
@@ -46,28 +55,32 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
     this.currentDateSubscription.unsubscribe();
   }
 
-  public currentDate$ = new BehaviorSubject(new Date());
-
-  public currentWeek: Date[];
-
-  public calendarWeeks: Date[][];
-
-  public prevMonth(): void {
-    this.currentDate$.next(subMonths(this.currentDate$.getValue(), 1));
+  @Dispatch()
+  public setCurrentDate(date: Date) {
+    return new SetCurrentDate(date);
   }
 
-  public nextMonth(): void {
-    this.currentDate$.next(addMonths(this.currentDate$.getValue(), 1));
+  @Dispatch()
+  public prevMonth() {
+    return new SetDatePrevMonth();
   }
 
-  public prevWeek(): void {
-    this.currentDate$.next(subWeeks(this.currentDate$.getValue(), 1));
+  @Dispatch()
+  public nextMonth() {
+    return new SetDateNextMonth();
   }
 
-  public nextWeek(): void {
-    this.currentDate$.next(addWeeks(this.currentDate$.getValue(), 1));
+  @Dispatch()
+  public prevWeek() {
+    return new SetDatePrevWeek();
   }
 
+  @Dispatch()
+  public nextWeek() {
+    return new SetDateNextWeek();
+  }
+
+  // generates Date matrix to display a 7 x 6 calendar grid for the current date
   private getCalendarWeeksForCurrentDate(date: Date): Date[][] {
     const firstDayOfMonth = startOfMonth(date);
 
@@ -76,27 +89,34 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
     const prevMonth = subMonths(date, 1);
     const prevMonthLastDay = endOfMonth(prevMonth);
 
+    // week index (Mon = 0, Tue = 1 ...) of first day of month.
+    // (n - 1 + 7) % 7 to convert Sun = 0 to Mon = 0
     const firstDayOfMonthAsWeekIndex = (getDay(firstDayOfMonth) - 1 + 7) % 7;
 
     const weeks = [];
     let currentDayIndex = 0;
 
+    // iterate weeks
     for (let week = 0; week < 6; week++) {
       const calendarWeek: Date[] = [];
 
+      // iterate week days
       for (let weekday = 0; weekday < 7; weekday++) {
         if (week === 0 && weekday < firstDayOfMonthAsWeekIndex) {
+          // add days before first day of month
           const prevMonthDay = subDays(
             prevMonthLastDay,
             firstDayOfMonthAsWeekIndex - weekday - 1
           );
           calendarWeek.push(prevMonthDay);
         } else if (currentDayIndex + 1 > lastDayOfMonth.getDate()) {
+          // add days after last day of month
           const dateAtIndex = setDate(date, currentDayIndex);
           const targetDate = addDays(dateAtIndex, 1);
           calendarWeek.push(targetDate);
           currentDayIndex++;
         } else {
+          // add days of the month
           currentDayIndex++;
           calendarWeek.push(setDate(date, currentDayIndex));
         }

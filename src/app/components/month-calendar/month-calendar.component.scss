@@ -2,6 +2,8 @@ $cell-width: 40px;
 $cell-height: 35px;
 
 .im-month-calendar {
+  width: min-content;
+
   &__grid {
     font-size: 0.8rem;
     display: flex;
@@ -38,7 +40,7 @@ $cell-height: 35px;
     position: relative;
 
     &.-week {
-      background: rgb(236, 246, 253);
+      background: var(--color-accent-subtle);
 
       &.-day {
         background: var(--color-accent);

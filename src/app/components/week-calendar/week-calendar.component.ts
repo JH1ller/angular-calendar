@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   eachHourOfInterval,
   format,
   isSameDay,
   isSameHour,
-  isSameWeek,
   setHours,
 } from 'date-fns';
 import { Appointment } from 'src/app/models/dtos/appointment.model';
+import { AppointmentDialog } from './components/appointment-dialog.component';
 
 @Component({
   selector: 'im-week-calendar',
@@ -21,6 +22,8 @@ export class WeekCalendarComponent {
   @Output() changeDate = new EventEmitter<Date>();
   @Output() prevWeek = new EventEmitter();
   @Output() nextWeek = new EventEmitter();
+
+  constructor(private dialog: MatDialog) {}
 
   public isSameDay(leftDate: Date, rightDate: Date) {
     return isSameDay(leftDate, rightDate);
@@ -37,6 +40,13 @@ export class WeekCalendarComponent {
     return format(day, 'd iii').toUpperCase();
   }
 
+  public getFormattedDateTitle(): string {
+    return `${this.currentWeek[0].getDate()} - ${this.currentWeek[6].getDate()} ${format(
+      this.currentDate,
+      'MMMM yyyy'
+    )}`;
+  }
+
   public getFormattedHour(hour: Date): string {
     return format(hour, 'kk:mm');
   }
@@ -47,7 +57,11 @@ export class WeekCalendarComponent {
     ).length;
   };
 
-  public pluralize(label: string, count: number): string {
-    return `${count} ${label}${count !== 1 ? 's' : ''}`;
+  public hourClicked(hour: Date): void {
+    // don't opan dialog if hour has no appointments
+    if (!this.getNumberOfAppointmentsInHour(hour)) return;
+
+    this.changeDate.emit(hour);
+    this.dialog.open(AppointmentDialog);
   }
 }
