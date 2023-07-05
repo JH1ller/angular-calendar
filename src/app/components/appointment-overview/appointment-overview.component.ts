@@ -14,6 +14,9 @@ import {
   setDate,
   subDays,
   addDays,
+  isSameWeek,
+  subWeeks,
+  addWeeks,
 } from 'date-fns';
 
 @Component({
@@ -45,6 +48,8 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
 
   public currentDate$ = new BehaviorSubject(new Date());
 
+  public currentWeek: Date[];
+
   public calendarWeeks: Date[][];
 
   public prevMonth(): void {
@@ -53,6 +58,14 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
 
   public nextMonth(): void {
     this.currentDate$.next(addMonths(this.currentDate$.getValue(), 1));
+  }
+
+  public prevWeek(): void {
+    this.currentDate$.next(subWeeks(this.currentDate$.getValue(), 1));
+  }
+
+  public nextWeek(): void {
+    this.currentDate$.next(addWeeks(this.currentDate$.getValue(), 1));
   }
 
   private getCalendarWeeksForCurrentDate(date: Date): Date[][] {
@@ -65,7 +78,7 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
 
     const firstDayOfMonthAsWeekIndex = (getDay(firstDayOfMonth) - 1 + 7) % 7;
 
-    const grid = [];
+    const weeks = [];
     let currentDayIndex = 0;
 
     for (let week = 0; week < 6; week++) {
@@ -89,8 +102,13 @@ export class AppointmentOverviewComponent implements OnInit, OnDestroy {
         }
       }
 
-      grid.push(calendarWeek);
+      weeks.push(calendarWeek);
     }
-    return grid;
+
+    this.currentWeek = weeks.find((week) =>
+      isSameWeek(week[0], date, { weekStartsOn: 1 })
+    )!;
+
+    return weeks;
   }
 }

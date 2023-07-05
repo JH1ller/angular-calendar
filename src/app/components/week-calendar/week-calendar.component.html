@@ -1,0 +1,43 @@
+<div class="im-week-calendar">
+  <div class="im-week-calendar__weekday-header">
+    <div
+      class="im-week-calendar__weekday-header-day"
+      *ngFor="let day of currentWeek"
+      [ngClass]="{ '-current': isSameDay(day, currentDate) }"
+    >
+      {{ getFormattedDayHeader(day) }}
+    </div>
+  </div>
+  <div class="im-week-calendar__hours-column">
+    <div
+      class="im-week-calendar__hours-column-hour"
+      *ngFor="let hour of getHoursOfDay(currentDate)"
+    >
+      {{ getFormattedHour(hour) }}
+    </div>
+  </div>
+  <div class="im-week-calendar__hour-grid">
+    <div
+      class="im-week-calendar__hour-grid-day"
+      *ngFor="let day of currentWeek"
+    >
+      <div
+        class="im-week-calendar__hour-grid-hour"
+        *ngFor="let hour of getHoursOfDay(day)"
+        [ngClass]="{ '-meeting': getNumberOfAppointmentsInHour(hour) }"
+      >
+        <span
+          class="im-week-calendar__appointment-label"
+          *ngIf="getNumberOfAppointmentsInHour(hour)"
+        >
+          {{
+            pluralize(
+              "Viewing",
+              getNumberOfAppointmentsInHour(hour)
+            ).toUpperCase()
+          }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

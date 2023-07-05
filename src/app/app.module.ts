@@ -13,12 +13,14 @@ import { AppointmentsState } from './state/appointments/appointments.state';
 
 import { AppointmentOverviewComponent } from './components/appointment-overview/appointment-overview.component';
 import { MonthCalendarComponent } from './components/month-calendar/month-calendar.component';
+import { WeekCalendarComponent } from './components/week-calendar/week-calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppointmentOverviewComponent,
     MonthCalendarComponent,
+    WeekCalendarComponent,
   ],
   imports: [
     BrowserModule,
