@@ -1,14 +1,24 @@
 <div class="im-month-calendar">
-  <p class="im-month-calendar__title">
-    {{ getMonthName(currentDate) }} {{ currentDate.getFullYear() }}
-  </p>
-  <div class="im-month-calendar__navigation">
-    <button mat-icon-button aria-label="Prev button" (click)="prevMonth.emit()">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="Next button" (click)="nextMonth.emit()">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
+  <div class="im-month-calendar__title-bar">
+    <p class="im-month-calendar__title">
+      {{ getFormattedDateTitle(currentDate) }}
+    </p>
+    <div class="im-month-calendar__navigation">
+      <button
+        mat-icon-button
+        aria-label="Prev button"
+        (click)="prevMonth.emit()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Next button"
+        (click)="nextMonth.emit()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="im-month-calendar__grid">
     <div class="im-month-calendar__week-header">
@@ -23,6 +33,7 @@
         [ngClass]="{
           '-day': isSameDay(day, currentDate),
           '-week': isSameWeek(day, currentDate),
+          '-appointment': dayHasAppointment(day)
         }"
         (click)="changeDate.emit(day)"
       >

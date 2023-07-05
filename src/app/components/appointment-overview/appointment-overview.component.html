@@ -4,6 +4,7 @@
     *ngIf="currentDate$ | async as currentDate"
     [currentDate]="currentDate"
     [calendarWeeks]="calendarWeeks"
+    [appointments]="(appointments$ | async) ?? []"
     (changeDate)="currentDate$.next($event)"
     (prevMonth)="prevMonth()"
     (nextMonth)="nextMonth()"

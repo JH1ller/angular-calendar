@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --text-color: #3d3d3d;
-  --text-color-secondary: #9c9c9c;
-  --bg-color: #fff;
-  --bg-color-secondary: hsl(180, 50%, 93%);
+  --color-text: #3d3d3d;
+  --color-text-secondary: #9c9c9c;
+  --color-bg: #fff;
+  --color-bg-secondary: hsl(180, 50%, 93%);
+  --color-accent: rgb(47, 156, 245);
 }
 html,
 body {
@@ -13,8 +14,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: var(--text-color);
-  background: var(--bg-color-secondary);
+  color: var(--color-text);
+  background: var(--color-bg-secondary);
 }
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";

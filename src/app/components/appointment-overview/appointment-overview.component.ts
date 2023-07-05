@@ -14,7 +14,6 @@ import {
   setDate,
   subDays,
   addDays,
-  isSameWeek,
 } from 'date-fns';
 
 @Component({
